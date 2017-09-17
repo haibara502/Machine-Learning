@@ -1,0 +1,66 @@
+\documentclass{article}
+
+\title{Report}
+\author{Qinyun Song}
+\date{}
+
+\begin{document}
+	\maketitle
+	
+	My codes can be divided into four parts. The first part is the class handling the people. The second part is the classes handling the features. The third part is the structure handling the tree. And the fourth part is the main program. By doing this, I can encapsulate many operations to the first three parts. Thus makes my main program much simpler. I am going to introduce these four parts.
+	
+	\section{People}
+		To handling the people, I designed a class called People. It contains the following functions:
+		\begin{enumerate}
+			\item Recording the name and the label of each person.
+			\item Calculating the entropy of these people.
+			\item Find the most common label among these people.
+		\end{enumerate}
+		Everytime I need the information about a group of people, this class can calculate information for me. \newline
+		This class is implemented in the file \emph{people.h, people.cpp}.
+	\section{Feature}
+		\subsection{BasicFeature}
+		I noticed that, the feachers all need similar functions, like calculating the information gain, dividing the current people. So I first implement a base class called BasicFeature. It contains the following three functions:
+		\begin{enumerate}
+			\item Returns the information gain.
+			\item Divide a group of people.
+			\item Find the subgroup one person belongs to.
+		\end{enumerate}
+		The three functions above are all defined as virtual functions. The reason doing that is that, I can control different features only using the pointers to this base class. This is done by polymorphism. \newline
+		This class is implemented in the file \emph{basicfeature.h}.
+		\subsection{fSum}
+			This class is designed to handle one feature: the sum of the characters in one's name. It derived the function from the base class and it will calculate the corresponding result based on its own conditions.
+			\newline
+			This class is implemented in file \emph{fSum.h, fSum.cpp}.
+		\subsection{fLength}
+			This class is used to control the feature: length of the name. It is also derived from the base class and will implement the required three functions based on its own requirements.
+			\newline
+			This class is implemented in the file \emph{flength.h, flength.cpp}.
+		\subsection{fThirdChar}
+			This class is used to divide the person by the fourth character in their names. It derived the base class. It contains 27 classes. The first 26 classes correspond to the 26 letters. And the last class is used to contain other characters. It will also implement the required functions.
+			\newline
+			It is defined in the file \emph{fthirdchar.h, fthirdchar.cpp}
+		\subsection{fOdd}
+			This class is defined to control the feature: The sum of the first name of one person is odd or even. It also derived the base class and will calculate the results for the required functions.
+			\newline
+			This class is implemented in the file \emph{fodd.h, fodd.cpp}.
+		\subsection{AllFeatures}
+			This class is used to handle different features. Since we may need same kind of information from different features, I use this class as the entrance of sending and getting the require information. It records four pointers in the base class type pointing to the above four different features. So for the required three functions, it will choose the desired feature and return the number from that feature.
+			\newline
+			This class is implemented in the file \emph{allfeatures.h, allfeatures.cpp}.
+			
+	\section{Node}
+		This class is defined to build the tree structure of the desicion tree. It contains the following information of a node in the tree:
+		\begin{enumerate}
+			\item A vector of nodes of its subtrees. Since it may not be a binary tree, I used a vector to hold pointers to all its subtrees.
+			\item A number to record what features are not used till now. So at each node, I can enumerate all the unused features to build the tree.
+			\item A number to record the finally chosen feature. So that when I want to test one name, I can find the corresponding featuer and calculate which group it belongs.
+			\item The label of the node. This is only used when the node is the leave of the tree so that it can return the result of the prediction.
+		\end{enumerate}
+		This class is defined in the file \emph{node.h, node.cpp}
+	\section{Main Program}
+		The main program is used to build a new decision tree and predict the label of names. It will first read all the names for training and use a recurrent function to build the tree. During the recursion, it will first enumerate all possible features and find the best one. Then it will divide the people to several groups and create subtrees for each of the group. At last, it will call the function to build the tree of its subtrees. \newline
+		For the testing, it will also read all the names and search in the decision tree for each name. It will find the corresponding label of the name and compare with the correct label. It will also report the accuracy of the whole test data.
+		\newline
+		This is implemented in the file \emph{DT.cpp}
+\end{document}
