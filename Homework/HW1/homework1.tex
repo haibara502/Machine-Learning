@@ -1,0 +1,273 @@
+\documentclass{article}[12pt]
+
+\title{Homework 1}
+\author{Qinyun Song}
+\date{}
+
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+\usepackage{graphicx}
+
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm}
+
+\usepackage{amssymb}
+\newenvironment{claim}[1]{\par\noindent\underline{Claim:}\space#1}{}
+\newenvironment{guess}[1]{\par\noindent\underline{Guess:}\space#1}{}
+\usepackage{amsthm}
+
+\begin{document}
+	\maketitle
+	
+	\section{Decision Tree}
+	
+	\subsection{Write Decision Tree}
+		\begin{enumerate}
+			\item
+			\begin{algorithm}
+				\caption{Decision Tree 1}
+				\begin{algorithmic}[1]
+					\State $ (x_1 \land x_2) \lor (x_1 \land x_3)$
+					\If {$x_1 = 0$}
+						\State \Return{0}
+					\ElsIf {$x_2 = 1$}
+						\State \Return{1}
+					\ElsIf {$x_3 = 1$}
+							\State \Return{1}
+					\Else \State \Return{0}
+					\EndIf
+				\end{algorithmic}
+			\end{algorithm}
+			\item
+			\begin{algorithm}
+				\caption{Decision Tree 2}
+				\begin{algorithmic}[1]
+					\State $ (x_1 \land x_2) \, xor\,  x_3$
+					\If {$x_3 = 1$}
+						\If {$x_1 = 0$}
+							\State \Return{1}
+						\ElsIf {$x_2 = 0$}	
+							\State \Return{1}
+						\Else \State \Return{0}
+						\EndIf
+					\Else
+						\If {$x_1 = 0$}	
+							\State \Return{0}
+						\ElsIf {$x_2 = 0$}
+							\State \Return{0}
+						\Else \State \Return{1}
+						\EndIf
+					\EndIf
+				\end{algorithmic}
+			\end{algorithm}
+			\item
+			\begin{algorithm}
+				\caption{Decision Tree 2}
+				\begin{algorithmic}[1]
+					\State $ \lnot A \lor \lnot B \lor \lnot C \lor \lnot D$
+					\If {$A = 0$}
+						\State \Return{1}
+					\ElsIf {$ B = 0$}
+						\State \Return {1}
+					\ElsIf {$ C = 0 $}
+						\State \Return {1}
+					\ElsIf {$ D = 0$}
+						\State \Return {1}
+					\Else
+						\State \Return {0}
+					\EndIf
+				\end{algorithmic}
+			\end{algorithm}
+		\end{enumerate}
+	\subsection{Aliens invading}
+        \begin{enumerate}
+            \item The number of possible functions is:
+                \begin{displaymath}
+                    2^{2 \times 2 \times 4 \times 4} = 2^{64}
+                \end{displaymath}
+                The number of consistent possible functions is:
+                \begin{displaymath}
+                    2^{64 - 9} = 2^{55}
+                \end{displaymath}
+            \item The probability that the alien is going to invade the earth is $\frac{5}{9}$. The probability that it is not to do that is $\frac{5}{9}$. So the entropy of the data can be calculated as:
+                \begin{displaymath}
+                    E = -\frac{5}{9}\log{-\frac{5}{9}} - \frac{4}{9} \log{-\frac{4}{9}} \approx 0.99
+                \end{displaymath}
+            \item \begin{enumerate}
+                \item For the feature Technology:
+                    \begin{enumerate}
+                        \item If Technology equals True, there is one example showing that the alien will invade and there are two show that it won't. So the entropy is:
+                        \begin{displaymath}
+                            E_{T_T} = -\frac{1}{3}\log{\frac{1}{3}} - \frac{2}{3}\log{\frac{2}{3}} \approx 0.92
+                        \end{displaymath}
+                        \item Similarly, when Technology is False, we can have:
+                        \begin{displaymath}
+                            E_{T_F} = -\frac{2}{6}\log{\frac{2}{6}} - \frac{4}{6}\log{\frac{4}{6}} \approx 0.92
+                        \end{displaymath}
+                    \end{enumerate}
+                    So the overall information gain is:
+                    \begin{displaymath}
+                        Gain(All, T) = E - \frac{3}{9} 0.92 - \frac{6}{9} 0.92 = 0.07
+                    \end{displaymath}
+                \item For the feature Environment:
+                    Similarly, we can have the following two equations:
+                    \begin{eqnarray}
+                        E_{E_T} &= &-\frac{4}{5}\log{\frac{4}{5}} - \frac{1}{5}\log{\frac{1}{5}} \approx 0.72 \nonumber \\
+                        E_{E_F} &= &-\frac{1}{4}\log{\frac{1}{4}} - \frac{3}{4}\log{\frac{3}{4}} = \approx 0.81 \nonumber \\
+                        Gain(All, E)& =& 0.99 - \frac{5}{9} \times 0.72 - \frac{4}{9} \times 0.81= 0.23 \nonumber
+                    \end{eqnarray}
+                \item for the feature Human, we have
+                    \begin{eqnarray}
+                        E_{H_{DC}} &=& -\frac{4}{4}\log{\frac{4}{4}} = 0 \nonumber \\
+                        E_{H_L} &=& -\frac{1}{4}\log{\frac{1}{4}} - \frac{3}{4}\log{\frac{3}{4}} = \approx 0.81 \nonumber \\
+                        E_{H_H} &=& -\frac{1}{1}\log{\frac{1}{1}} = 0 \nonumber \\
+                        Gain(All, H) &=& 0.99 - \frac{4}{9} \times 0 - \frac{4}{9}\times 0.81 - \frac{1}{9}\times 0 \nonumber \\ &=& 0.63 \nonumber
+                    \end{eqnarray}
+                \item For the feature distance, we have
+                    \begin{eqnarray}
+                        E_{D_1} &=&  -\frac{1}{2}\log{\frac{1}{2}} - \frac{1}{2}\log{\frac{1}{2}} = 1\nonumber \\
+                        E_{D_2} &=& -\frac{1}{1} \log{\frac{1}{1}} = 0\nonumber \\
+                        E_{D_3} &=& -\frac{2}{3}\log{\frac{2}{3}} - \frac{1}{3}\log{\frac{1}{3}} \approx 0.92\nonumber \\
+                        E_{D_4} &=& -\frac{1}{3}\log{\frac{1}{3}} - \frac{2}{3}\log{\frac{2}{3}} \approx 0.92\nonumber \\
+                        Gain(All, D) &=& 0.99 - 1\times\frac{2}{9} - 0\times\frac{1}{9} - 0.92 \times\frac{3}{9} - 0.92\times\frac{3}{9} \approx 0.15\nonumber 
+                    \end{eqnarray}
+                \end{enumerate}
+            \item I would use the Human feature to construct the root of the decision tree. Because its information gain is the maximum.
+            \item 
+                \includegraphics[width=0.35\textwidth]{Alien_DT}
+            \item The three results from the decision tree constructed above are Yes, No, Yes. The accuracy of the classifier is $\frac{2}{3}$
+        \end{enumerate}
+	\subsection{Majority Error}
+		\begin{enumerate}
+			\item Calculate the information gain of the four features using the majority error.
+			\begin{enumerate}
+				The majority label among all the data is Yes. So the overall majority error would be:
+				\begin{displaymath}
+					M = 1 - \frac{5}{9} \approx 0.444
+				\end{displaymath}
+				\begin{enumerate}
+					\item For the feature Technology, when it is Yes, the majority error is:
+						\begin{displaymath}
+							M_{T_T} = 1 - \frac{2}{3} \approx 0.333
+						\end{displaymath}
+						When it is No, the majority error is:
+						\begin{displaymath}
+							M_{T_N} = 1 - \frac{4}{6} \approx 0.333
+						\end{displaymath}
+						So the information gain of Technology would be:
+						\begin{displaymath}
+							Gain(All, Technology) = 0.444 - \frac{3}{9}\times 0.333 - \frac{6}{9} \times 0.333 = 0.111
+						\end{displaymath}
+					\item for the feature Environment, similarly, we can have:
+						\begin{eqnarray}
+							M_{E_Y} &=& 1 - \frac{4}{5} = 0.2\nonumber \\
+							M_{E_N} &=& 1 - \frac{3}{4} = 0.25\nonumber \\
+							Gain(All, Environment) &=& 0.444 - \frac{5}{9} \times 0.2 - \frac{4}{9} \times 0.25 \approx 0.222\nonumber 
+						\end{eqnarray}
+					\item for the feature Human, we have:
+						\begin{eqnarray}
+							M_{H_NC} &=& 1 - \frac{1}{1} = 0\nonumber \\
+							M_{H_L} &=& 1 - \frac{3}{4} = 0.25\nonumber \\
+							M_{H_H} &=& 1 - \frac{1}{1} = 0\nonumber \\
+							Gain(All, Human) &=& 0.444 - 0 \times \frac{4}{9} - 0.25 \times \frac{4}{9} - 0 \times \frac{1}{9} \approx 0.333\nonumber 
+						\end{eqnarray}
+					\item for the feature Distance,
+						\begin{eqnarray}
+							M_{D_1} &=& 1 - \frac{1}{2} = 0.5\nonumber \\
+							M_{D_2} &=& 1 - \frac{1}{1} = 0\nonumber \\
+							M_{D_3} &=& 1 - \frac{2}{3} = 0.333\nonumber \\
+							M_{D_4} &=& 1 - \frac{2}{3} = 0.333\nonumber \\
+							Gain(All, Distance) &=& 0.444 - 0.5 \times \frac{2}{9} - 0 \times \frac{1}{9} -0.333 \times \frac{3}{9} - 0.333 \times \frac{3}{9} \approx 0.111\nonumber 
+						\end{eqnarray}
+				\end{enumerate}
+			\end{enumerate}
+			\item According to the calculations above, the best attribute to choose could be the Technology or the Distance. Because their information gain are the same and are smaller than the other two. This is completely with the conclusion derived from entropy. So the tree derived here is different from the tree dirived previous.
+		\end{enumerate}
+	
+	\section{Linear Classifier}
+		\begin{enumerate} 
+			\item The function could be:
+				\begin{displaymath}	
+					o = 2x_1 +x_2 -x_3
+				\end{displaymath}
+			\item Only the prediction of the fourth data is corerct. So the overall accuracy is $\frac{1}{7}$.
+			\item The linear classifier could be:
+				\begin{displaymath}
+					o = sgn(3x_1 - x_3 + 3x_4 - 1)
+				\end{displaymath}
+				where the function $sgn$ means that if the parameter bigger than $1$ returns $1$ otherwise returns $-1$.
+		\end{enumerate}
+		
+	\section{Experiments}
+		\subsection{Implementation}
+		\begin{enumerate}
+			\item To design the code, there are many things needed to be considered.
+			\begin{itemize}
+				\item What features to use? \newline
+					I used four features.
+					\begin{enumerate}
+						\item The length of the name is smaller than four or between four to eight or bigger than eight.
+						\item The sum of the characters in the name mod three.
+						\item The fourth character in the name.
+						\item The sum of the first name of the person mod two.
+					\end{enumerate}
+				\item How to implement it in object-oriente way? \newline
+					I don't want to put all the calculations in one code because I think that is a very bad idea. So I divide the calculation into several parts. One is to handle the people and get information from them. One is using a specific feature to calculate information gain and divide people into sub-group. And the last one is the structure helping us to construct the tree. So I defined three different kinds of classes to handle the three situations.
+				\item How to implement the features? \newline
+					I noticed that the features all need same functions. Like returns what entropy is or how to divide the people into sub-groups. So I first designed a virtual class as the father. And designed four feature classes that inherent from the virtual class. So that in the following calculating, one pointer in type father class can handle all different features.
+				\item How to handle the people? \newline
+					I use a class to handle a group of people. The class can help to calculate the entropy of the people and return what is the most frequent label. By doing this, during the calculation, we don't need to care about how to calculate these any more.
+			\end{itemize}
+			\item There are many other features that can be used, such as:
+				\begin{enumerate}
+					\item The occurance of one specific character like $a$.
+					\item The length of the first name or last name.
+					\item Number of spaces in the name.
+					\item If there is a special character like a dot.
+				\end{enumerate}
+			\item The accuracy of my tree on the training data is $0.667416$
+			\item The accuracy of my tree on the test data is $0.612613$.
+			\item The maximum depth of the decision tree is $5$.
+		\end{enumerate}
+		\subsection{Limiting Depth}
+			\begin{enumerate}
+				\item Since the maximum depth of my decision tree is $5$, I will only use the depth in the set $\{1, 2, 3, 4, 5\}$.
+				The accuracy and the standard deviation are listed below. \newline
+				\begin{tabular}{|c|c|c|c|c|c|}
+					\hline
+					Depth & $1$ & $2$ & $3$ & $4$ & $5$ \\
+					\hline
+					Accuracy & $0.623874$& $0.623874$& $ \mathbf{0.628378}$ & $0.621622$&$0.621622$ \\
+					\hline
+					Standard Deviation & $0.05406$& $0.05406$&$0.06258$ & $0.05976$&$0.06021$ \\
+					\hline
+				\end{tabular}
+				\newline From the table we can see that, the best depth of my decision tree should be three. There are two reasons. First of all, it produces the best accuracy. Secondly, its standard deviation doesn't different from others much. So I would choose three as the depth.
+				\item By setting the maximum depth as three, the accuracy testing on the training data is $0.640449$. The number on the testing data is $0.621622$.
+				\item I do think limiting the depth of the tree is a good idea. The main reason is that, we can find out that, after limiting the depth from five to three, the accuracy on the training dasta set decreased. However, the accuracy on the test data increased. From this behavior, we can see that, we alleviate the overfitting problem. We can find a model that predicts better on the testing data although has poorer performance on the training data.
+			\end{enumerate}
+		
+	\section{Decision Lists}
+		\begin{proof}
+			For one decision list, suppose it contains $n$ variables $x_1, \cdots, x_n$. Proof it by induction.
+			\begin{itemize}
+			\item For the first node, we only have requirement of one variable. So we only need to see whether this variable is true or false. If the condition is $x_1$, the equivalent linear function will be 
+			\begin{equation}
+				x_1 > 0
+			\end{equation}
+			If it is bigger than zero, output one. Otherwise, output zero. 
+			If the condition is $\not x_1$, the equivalent linear function will be
+			\begin{eqnarray}
+				1 - x_1 &>& 0 \nonumber \\
+				-x_1 & > & -1 
+			\end{eqnarray}
+			\item So for the one decision list with only one node, it is linear seperable.
+			Suppose we have prooved that, for one decision list with no more than $n - 1$ nodes are all linear seperable. That is, we can have a linear function $w^Tx \ge b$ that describe exact the one decision list. Now we add a new condition node with variable $x_n$.  \newline
+			If it requires a positive variable, then we can add $x_n$ to the left side of the linear function and $1$ to the right side of it. Because the adding constriction shows that we need one more variable that is true showing that the sum of all variables now need to be increased by one. By doing this, the updated linear function can represent this decision tree uniquely. \newline
+			Otherwise, it would require a negative value. Similar as the above one, we only need to add $-x_n$ to the left side of the function and add $-1$ to the right side of it. Because we want to add one more constrain that requires one variable to be negative. So the sum should decreases by one. So the updated linear function  can also represent the decision list.
+			\end{itemize}
+			So after all, every one decision tree corresponds to one linear function. So it is linear seperable.
+		\end{proof}
+\end{document}
