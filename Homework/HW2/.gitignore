@@ -1,0 +1,8 @@
+Makefile
+*.cpp1
+*.cpp2
+*.aux
+*.data
+homework2.aux
+homework2.log
+homework*

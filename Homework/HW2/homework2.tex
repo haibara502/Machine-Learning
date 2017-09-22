@@ -1,0 +1,99 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+\usepackage{caption}
+
+\usepackage{amssymb}
+\newenvironment{claim}[1]{\par\noindent\underline{Claim:}\space#1}{}
+\newenvironment{guess}[1]{\par\noindent\underline{Guess:}\space#1}{}
+\usepackage{amsthm}
+
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm}
+
+\begin{document}
+	\section{Warm up: Linear Classifiers and Boolean Functions}
+		\begin{enumerate}
+			\item It is linearly separable. The linear threshold unit could be:
+			\begin{equation}
+				y = \left\{ \begin{array}{ll}
+					1 & if \quad x_1 + x_3 - x_2 \geq 0 \\
+					0 & otherwise \end{array} \right.
+			\end{equation}
+			\item It is linearly separable. The linear threshold unit could be:
+			\begin{equation}
+				y = \left\{ \begin{array}{ll}
+					1 & if \quad x_1 + x_3 + 2x_2 \geq 2 \\
+					0 & otherwise \end{array} \right.
+			\end{equation}
+			\item It is not linearly separable.
+			\item It is not linearly separable.
+			\item It is linearly separable. The linear threshold unit could be:
+			\begin{equation}
+				y = \left\{ \begin{array}{ll}
+					1 & if \quad -x_1+x_2-x_3\geq 1 \\
+					0 & otherwise \end{array} \right.
+			\end{equation}
+		\end{enumerate}
+	\section{Mistake Bound Model of Learning}
+	\begin{enumerate}
+		
+		\item \begin{enumerate} \item There are only $80$ possible values for $l$. And each $l$ corresponds to a unique function in the concept class. So we can se that 
+		\begin{equation}
+			|C| = 80
+		\end{equation}
+		\item Define a function
+		\begin{equation}
+			g(x_1, x_2) = f_l(x_1,x_2) - y^t
+		\end{equation}
+		if $g()$ equals zero, no mistake is made here. Otherwise, it makes a mistake.
+		\item \begin{enumerate}
+		\item If $g(x_1, x_2)$ is greater than zero, showing that function $f$ think it is positive but the true label isn't. In this case, the range of $f$ is bigger than we want. So remove all the functions with length no smaller than $l$.
+		\item If $g(x_1, x_2)$ is smaller than zero, showing that function $f$ thinks that it is negative but the true label is positive. In this case, the range of $l$ is smaller than what we want. So remove all the functions whose length is no bigger than $l$ in the concept class.
+		\end{enumerate}
+		\item \begin{algorithm}[H]
+		\caption{Mistake-driven Learning Algorithm}
+		\begin{algorithmic}[1]
+			\State Initialize $C_0 = C$.
+			\State \For{ sample $(x_1^i, x_2^i)$}
+				\State Find function $f_k$ whose length $k$ is the middle number among the length of all the functions in current concept class $C_i$.
+				\State Check if the function $f_k$ made a mistake.
+				\State \If{$f_k$ doesn't make a mistake}
+					\State Assign $C_{i + 1} = C_{i}$
+					\State Continue to the next sample
+				\Else { 
+					\State Calculate $g = f_k(x_1^i, x_2^i) - y^i$
+					\If {$g > 0$}
+						\State Remove all the functions in $C_i$ with length $\geq k$.
+					\Else {
+						\State Remove all the functions in $C_i$ with length $\leq k$.
+					\EndIf}
+				} \EndIf
+				\If {$|C_i| = 1$}
+					\State Break the loop.
+				\EndIf
+				\State Assign $C_{i + 1} = C_i$
+            \EndFor
+			
+			\State \Return the only remaining function.
+        \end{algorithmic}
+        \end{algorithm}
+		\end{enumerate}
+	\item \begin{proof}
+		For the Halving algorithm, the algorithm will stop when only $M$ functions in the concept class. Because the remaining  $M$ functions are all perfect experts since they will never be removed from the concept class. Suppose the algorithm made $k$ mistakes before it stops. Then we have:
+		\begin{equation}
+			M \times 2^k = N
+		\end{equation}
+		So we know that $k = \log{\frac{N}{M}}$. It means that the mistakes the algorithm will make is no bigger than $\log{\frac{N}{M}}$. That is, the mistake bound of it is $O(\log{\frac{N}{M}})$.
+	\end{proof}
+	\end{enumerate}
+	\section{The perceptron Algorithm and its Variants}
+	
+	
+\end{document}
