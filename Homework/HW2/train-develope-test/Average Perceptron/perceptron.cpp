@@ -9,10 +9,13 @@ double Perceptron::getRandom()
 
 void Perceptron::init()
 {
+	totalUpdate = 0;
 	w.clear();
+	a = vector<double>(dimension, 0);
 	for (int i = 0; i < dimension; ++i)
 		w.push_back(getRandom());
 	b = getRandom();
+	c = 0;
 	marginPerception = 1;
 	learningRate = 0.1; //Set default learning rate as 0.1.
 }
@@ -33,10 +36,15 @@ void Perceptron::train(Urls urls)
 
 		if (urls.getTrainLabel(i) * sum < marginPerception)
 		{
+			++totalUpdate;
 			for (int j = 0; j < dimension; ++j)
 				w[j] += learningRate * urls.getTrainSample(i, j) * urls.getTrainLabel(i);
 			b += learningRate * urls.getTrainLabel(i);
 		}
+
+		for (int j = 0; j < dimension; ++j)
+			a[j] += w[j];
+		c += b;
 	}
 }
 
@@ -47,13 +55,14 @@ double Perceptron::test(Urls urls)
 	{
 		double sum = 0;
 		for (int j = 0; j < dimension; ++j)
-			sum += w[j] * urls.getTestSample(i, j);
-		sum += b;
+			sum += a[j] * urls.getTestSample(i, j);
+		sum += c;
 
 		if (sum * urls.getTestLabel(i) < -1e-10)
 			continue;
 		++numCorrect;
 	}
+	cout << "Total update: " << totalUpdate << endl;
 	return double(numCorrect) / urls.getTestSize();
 }
 
@@ -64,8 +73,8 @@ double Perceptron::cv(Urls urls)
 	{
 		double sum = 0;
 		for (int j = 0; j < dimension; ++j)
-			sum += w[j] * urls.getCvSample(i, j);
-		sum += b;
+			sum += a[j] * urls.getCvSample(i, j);
+		sum += c;
 
 		if (sum * urls.getCvLabel(i) < -1e-10)
 			continue;

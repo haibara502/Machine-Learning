@@ -15,11 +15,14 @@ using namespace std;
 class Perceptron
 {
 	vector<double> w;
+	vector<double> a;
 	double b;
+	double c;
 	double learningRate;
 	double marginPerception;
 	static const int dimension;
 	double getRandom();
+	int totalUpdate;
 	public:
 		void init();
 		void setLearningRate(double);
