@@ -26,7 +26,7 @@ int main()
 	perceptron.setLearningRate(lr);
 	for (int epoch = 0; epoch < 20; ++epoch)
 	{
-		cout << "This is epoch : " << epoch << endl;
+		cout << "This is epoch : " << epoch + 1 << endl;
 		perceptron.train(urls);
 		cout << "The accuracy of development set is " << perceptron.cv(urls) << endl;
 	}
