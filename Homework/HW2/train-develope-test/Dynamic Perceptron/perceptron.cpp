@@ -35,6 +35,7 @@ void Perceptron::train(Urls urls)
 			for (int j = 0; j < dimension; ++j)
 				w[j] += learningRate * urls.getTrainSample(i, j) * urls.getTrainLabel(i);
 			b += learningRate * urls.getTrainLabel(i);
+			++totalUpdate;
 		}
 	}
 }
@@ -53,6 +54,7 @@ double Perceptron::test(Urls urls)
 			continue;
 		++numCorrect;
 	}
+	cout << "Total update : " << totalUpdate << endl;
 	return double(numCorrect) / urls.getTestSize();
 }
 

@@ -19,6 +19,7 @@ class Perceptron
 	double learningRate;
 	static const int dimension;
 	double getRandom();
+	int totalUpdate;
 	public:
 		void init();
 		void setLearningRate(double);
