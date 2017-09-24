@@ -9,12 +9,11 @@ double Perceptron::getRandom()
 
 void Perceptron::init()
 {
-	averageWeight = vector<double>(dimension, 0);
-	averageBias = 0;
 	w.clear();
 	for (int i = 0; i < dimension; ++i)
 		w.push_back(getRandom());
 	b = getRandom();
+	marginPerception = 1;
 	learningRate = 0.1; //Set default learning rate as 0.1.
 }
 
@@ -32,16 +31,12 @@ void Perceptron::train(Urls urls)
 			 sum += w[j] * urls.getTrainSample(i, j);
 		sum += b;
 
-		if (urls.getTrainLabel(i) * sum < -1e-10)
+		if (urls.getTrainLabel(i) * sum < marginPerception)
 		{
 			for (int j = 0; j < dimension; ++j)
 				w[j] += learningRate * urls.getTrainSample(i, j) * urls.getTrainLabel(i);
 			b += learningRate * urls.getTrainLabel(i);
 		}
-
-		for (int j = 0; j < dimension; ++j)
-			averageWeight[j] += w[j];
-		averageBias += b;
 	}
 }
 
@@ -52,8 +47,8 @@ double Perceptron::test(Urls urls)
 	{
 		double sum = 0;
 		for (int j = 0; j < dimension; ++j)
-			sum += averageWeight[j] * urls.getTestSample(i, j);
-		sum += averageBias;
+			sum += w[j] * urls.getTestSample(i, j);
+		sum += b;
 
 		if (sum * urls.getTestLabel(i) < -1e-10)
 			continue;
@@ -62,19 +57,29 @@ double Perceptron::test(Urls urls)
 	return double(numCorrect) / urls.getTestSize();
 }
 
-double Perceptron::cv(Urls urls) //Return the test accuracy after the training.
+double Perceptron::cv(Urls urls) 
 {
 	int numCorrect = 0;
 	for (int i = 0; i < urls.getCvSize(); ++i)
 	{
 		double sum = 0;
 		for (int j = 0; j < dimension; ++j)
-			sum += averageWeight[j] * urls.getCvSample(i, j);
-		sum += averageBias;
+			sum += w[j] * urls.getCvSample(i, j);
+		sum += b;
 
 		if (sum * urls.getCvLabel(i) < -1e-10)
 			continue;
 		++numCorrect;
 	}
 	return double(numCorrect) / urls.getCvSize();
+}
+
+void Perceptron::divideLearningRate(double ratio)
+{
+	learningRate /= ratio;
+}
+
+void Perceptron::setMarginPerception(double std)
+{
+	marginPerception = std;
 }

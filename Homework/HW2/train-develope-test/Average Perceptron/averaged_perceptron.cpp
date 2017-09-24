@@ -28,8 +28,8 @@ int main()
 	for (int epoch = 0; epoch < 20; ++epoch)
 	{
 		perceptron.train(urls);
-		cout << "This is epoch " << epoch << endl;
+		cout << "This is epoch " << epoch + 1 << endl;
 		cout << "The accuracy of development set is " << perceptron.cv(urls)<< endl;
 	}
-	cout << "The final accuracy of simple perceptron is " << perceptron.test(urls) << endl;
+	cout << "The final accuracy of average perceptron is " << perceptron.test(urls) << endl;
 }

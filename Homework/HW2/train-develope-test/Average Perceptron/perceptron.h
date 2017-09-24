@@ -15,10 +15,9 @@ using namespace std;
 class Perceptron
 {
 	vector<double> w;
-	vector<double> averageWeight;
-	double averageBias;
 	double b;
 	double learningRate;
+	double marginPerception;
 	static const int dimension;
 	double getRandom();
 	public:
@@ -27,6 +26,8 @@ class Perceptron
 		void train(Urls);
 		double cv(Urls);
 		double test(Urls);
+		void divideLearningRate(double);
+		void setMarginPerception(double);
 };
 
 #endif
