@@ -39,5 +39,5 @@ int main()
 		}
 		finalAnswer += answer;
 	}
-	cout << "The final accuracy of simple perceptron is " << finalAnswer / 5.0 << endl;
+	cout << "The final accuracy of dynamic perceptron is " << finalAnswer / 5.0 << endl;
 }

@@ -41,5 +41,5 @@ int main()
 			answer = perceptron.accuracy(urls);
 		finalAnswer += answer;
 	}
-	cout << "The final accuracy of simple perceptron is " << finalAnswer / 5.0 << endl;
+	cout << "The final accuracy of margin perceptron is " << finalAnswer / 5.0 << endl;
 }
