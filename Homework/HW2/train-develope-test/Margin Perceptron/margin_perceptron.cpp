@@ -23,7 +23,7 @@ int main()
 	double lr, mp;
 	cout << "Please input learning rate: ";
 	cin >> lr;
-	cout << endl << "Please input margin: ";
+	cout << "Please input margin: ";
 	cin >> mp;
 
 	perceptron.setLearningRate(lr);
