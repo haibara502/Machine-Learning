@@ -20,6 +20,7 @@ class Perceptron
 	static const int dimension;
 	double getRandom();
 	double calcLearningRate(vector<double>, double);
+	int totalUpdate;
 	public:
 		void init();
 		void train(Urls);

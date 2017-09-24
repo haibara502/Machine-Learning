@@ -26,6 +26,7 @@ double Perceptron::calcLearningRate(vector<double> x, double y)
 
 void Perceptron::init()
 {
+	totalUpdate = 0;
 	w.clear();
 	for (int i = 0; i < dimension; ++i)
 		w.push_back(getRandom());
@@ -42,8 +43,11 @@ void Perceptron::train(Urls urls)
 			 sum += w[j] * urls.getTrainSample(i, j);
 
 		if (urls.getTrainLabel(i) * sum < marginPerception)
+		{
 			for (int j = 0; j < dimension; ++j)
 				w[j] += calcLearningRate(urls.getOneTrainSample(i), urls.getTrainLabel(i)) * urls.getTrainSample(i, j) * urls.getTrainLabel(i);
+			++totalUpdate;
+		}
 	}
 }
 
@@ -60,6 +64,7 @@ double Perceptron::test(Urls urls)
 			continue;
 		++numCorrect;
 	}
+	cout << "Total update: " << totalUpdate << endl;
 	return double(numCorrect) / urls.getTestSize();
 }
 
