@@ -9,6 +9,7 @@ double Perceptron::getRandom()
 
 void Perceptron::init()
 {
+	totalUpdate = 0;
 	w.clear();
 	for (int i = 0; i < dimension; ++i)
 		w.push_back(getRandom());
