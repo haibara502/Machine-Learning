@@ -14,6 +14,10 @@ int main()
 {
 	Perceptron perceptron;
 
+	double learningRate;
+	cout << "Please enter the learning rate :" ;
+	cin >> learningRate;
+
 	double finalAnswer = 0;
 	for (int i = 0; i < 5; ++i)
 	{
@@ -26,7 +30,7 @@ int main()
 		urls.readTest(string("training0") + char(i + '0') + string(".data"));
 
 		perceptron.init();
-		perceptron.setLearningRate(0.1);
+		perceptron.setLearningRate(learningRate);
 		double answer;
 		for (int epoch = 0; epoch < 10; ++epoch)
 			answer = perceptron.accuracy(urls);
