@@ -12,7 +12,9 @@ using namespace std;
 
 int main()
 {
-	double learningRate = 1.0;
+	double learningRate;
+	cout << "Please enter the learning rate: ";
+	cin >> learningRate;
 
 	double finalAnswer = 0;
 	for (int i = 0; i < 5; ++i)
