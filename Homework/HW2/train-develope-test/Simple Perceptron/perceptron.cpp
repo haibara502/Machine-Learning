@@ -9,6 +9,7 @@ double Perceptron::getRandom()
 
 void Perceptron::init()
 {
+	totalUpdate = 0;
 	w.clear();
 	for (int i = 0; i < dimension; ++i)
 		w.push_back(getRandom());
@@ -32,6 +33,7 @@ void Perceptron::train(Urls urls)
 
 		if (urls.getTrainLabel(i) * sum < -1e-10)
 		{
+			++totalUpdate;
 			for (int j = 0; j < dimension; ++j)
 				w[j] += learningRate * urls.getTrainSample(i, j) * urls.getTrainLabel(i);
 			b += learningRate * urls.getTrainLabel(i);
@@ -53,6 +55,7 @@ double Perceptron::test(Urls urls)
 			continue;
 		++numCorrect;
 	}
+	cout << "total update: " << totalUpdate << endl;
 	return double(numCorrect) / urls.getTestSize();
 }
 
