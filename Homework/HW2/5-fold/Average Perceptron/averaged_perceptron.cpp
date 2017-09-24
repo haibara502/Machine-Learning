@@ -14,6 +14,10 @@ int main()
 {
 	Perceptron perceptron;
 
+	double learningRate;
+	cout << "Please input the learning rate: ";
+	cin >> learningRate; 
+
 	double finalAnswer = 0;
 	for (int i = 0; i < 5; ++i)
 	{
@@ -26,11 +30,11 @@ int main()
 		urls.readTest(string("training0") + char(i + '0') + string(".data"));
 
 		perceptron.init();
-		perceptron.setLearningRate(1);
+		perceptron.setLearningRate(learningRate);
 		double answer;
 		for (int epoch = 0; epoch < 10; ++epoch)
 			answer = perceptron.accuracy(urls);
 		finalAnswer += answer;
 	}
-	cout << "The final accuracy of simple perceptron is " << finalAnswer / 5.0 << endl;
+	cout << "The final accuracy of average perceptron is " << finalAnswer / 5.0 << endl;
 }
