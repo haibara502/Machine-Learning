@@ -14,10 +14,6 @@ int main()
 {
 	Perceptron perceptron;
 
-	double learningRate;
-	cout << "Please enter the learning rate: ";
-	cin >> learningRate;
-
 	double margin;
 	cout << "Please enter the margin: ";
 	cin >> margin;
@@ -34,14 +30,10 @@ int main()
 		urls.readTest(string("training0") + char(i + '0') + string(".data"));
 
 		perceptron.init();
-		perceptron.setLearningRate(learningRate);
 		perceptron.setMarginPerception(margin);
 		double answer;
 		for (int epoch = 0; epoch < 10; ++epoch)
-		{
-			perceptron.divideLearningRate(epoch + 1);
 			answer = perceptron.accuracy(urls);
-		}
 		finalAnswer += answer;
 	}
 	cout << "The final accuracy of aggresive perceptron is " << finalAnswer / 5.0 << endl;

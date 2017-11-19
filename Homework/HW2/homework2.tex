@@ -95,20 +95,43 @@
 	\end{enumerate}
 	\section{The perceptron Algorithm and its Variants}
 	\begin{enumerate}
-		\item .
-		\item .
+		\item The whole program is realized using \emph{$c++$}. To realize it, I divide the program into several parts. The main idea is that, I want to encapsulate the procedure inside different classes to simplify the overall complexity of the code. Also, by doing this, the way to reuse the classes are convinient. The first part is called \emph{url}. It handles all the examples. It stores the label and the feature vector of the example and will return corresponding value during query. The second part is called \emph{urls}. This class is used to handle all of the examples. It has two(three when using the dev data) vectors corresponding to the training set and the test data set separately. In each training time, it will fed the algorithm the examples and return required values. The third part is called \emph{perceptron}. This class is used to calculate the training and test(also dev process in dev dataset) datasets. By fedding it the examples, it will train the perceptron. And by giving the examples, it can return the testing accuracy. That is to say, I encapsulate all the training and testing process inside this class. The final part is the \emph{main c++ file}. It first initialize the perceptron and the urls. Then it reads the required hyperparameters. And it will also control the epoch of the training and output the accuracy. 
+		\begin{description}
+			\item[url]
+				This is class is used to inclose all the information of an example. By defining this, I can store the feature and the label inside this class and call the corresponding functions to get the value when needed.
+			\item[urls]
+				This class is used to handle all the examples. It will store the training and the testing examples in two vectors. Everytime the training process starts, just call its function and it can fed the data one by one. By doing this, I can using the whole data when needed and don't need to define any global variables to remember the data.
+			\item[perceptron]
+				This class imitate the process of the perceptron. It contains the weight vector and the bias. These values are randomly initialized at the beginning. After that, everytime just give the dataset to it and specify which process to do, it can finish the process itself and then return the answer. By doing this, the processes are only occured inside this class thus when doing little changes to the perceptron, it is very convinient. It contains the training process, which will do the update of the weight and bias. It also contains the test process, which will return the accuracy of the testset.
+			\item[main program] The main program mainly used to combine the parts above into a program. It first initialize one \emph{urls} and one \emph{perceptron}. And then it will call the \emph{urls} to read the data. After that, it controls the epoch, and in each epoch, giving the examples to the \emph{perceptron} and require the needed value. At the end of the program, return the accuracy of the testset by calling the \emph{perceptron} to do that.
+		\end{description}
+		\item For the test and development set, the accuracy must $\geq 50\%$. And more specificly, suppose there are total $N$ examples and there are $M$ examples with the most frequent label. Then the accuracy would be $N / M \times 100\%$.
 		\item \begin{tabular}{|c|c|c|c|c|c|}
 		\hline
-			Basic Perceptron & 0.1 & 0.914603 \\
+			Algorithm & Bst hypr-pam & CV accuracy & \# Updates & Dev accuracy & Test accuracy \\
 		\hline
-			Dynamic Perceptron & 1 & 0.92908\\
+			Basic Perceptron & 0.1 & 0.914603 & 13101 & 0.904486 & 0.912446\\
 		\hline
-			Margin Perceptron & 0.1 , 1& 0.932699\\
+			Dynamic Perceptron & 1 & 0.92908 & 10993 & 0.913169 & 0.922576\\
+		\hline
+			Margin Perceptron & 0.1 , 1& 0.932699 & 18571 & 0.92547 & 0.929088\\
 		\hline 
-			Average Perceptron & 1 & 0.930889\\
+			Average Perceptron & 1 & 0.930889 & 25198 & 0.928365 & 0.931259 \\
 		\hline
-			Aggresive Perceptron & As long as margin not equal to 0.01  & 0.916659\\
+			Aggresive Perceptron & 0.1  & 0.916659 & 27365 & 0.895803 & 0.900145\\
 		\hline
 		\end{tabular}
+		\begin{description}
+			\item[Simple perceptron]
+				\includegraphics[width=0.5\textwidth]{simple1.png}
+			\item[Dynamic perceptron]
+				\includegraphics[width=0.5\textwidth]{dynamic.png}
+			\item[Margin perceptron]
+				\includegraphics[width=0.5\textwidth]{margin1.png}
+			\item[Average perceptron]
+				\includegraphics[width=0.5\textwidth]{average.png}
+			\item[Aggressive perceptron]
+				\includegraphics[width=0.5\textwidth]{aggresive1.png}
+		\end{description}
 	\end{enumerate}
 \end{document}
