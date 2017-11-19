@@ -18,10 +18,37 @@
 \usepackage{geometry}
 \geometry{left=2.5cm,right=2.5cm}
 
-\title{Homework 4}
+\title{Homework 5}
 \author{Qinyun Song}
 \date{}
 
 \begin{document}
 	\maketitle
+
+	\section{Logistic Regression}
+		\begin{enumerate}
+		\item \begin{equation}
+			g(w)' = -\frac{y_ix_ie^{-y_iw^Tx_i}}{1 + e^{-y_iw^Tx_i}}
+		\end{equation}
+		\item From the problem we know that the function we aim to minimize is \begin{equation}
+			J(w) = \sum_{i = 1}^m{log(1 + e^{-y_iw^Tx_i}) + \frac{1}{\sigma^2}w^Tw}
+		\end{equation} By using the SGD algorithm, for a simple example $(x_i, y_i)$, wthe gradient with respect to the weight vector is \begin{equation}
+			J(w)' = \frac{-y_ix_ie^{-y_iw^Tx_i}}{1 + e^{-y_iw^Tx_i}} + \frac{2}{\sigma^2}w
+		\end{equation}
+		\item \begin{algorithm} [H]
+			\caption{Algorithm for SGD}
+			\begin{algorithmic}[1]
+			\State Define trainig set $S = \{(x_i, y_i)\}, x\in R^n$
+			\State Init $w^0 = 0 \in R^n$
+			\For{$t = 1, \cdots, T$}
+				\State Pick random example $(x_i, y_i)$
+				\State Treat the example as the whole training set with the object function \begin{equation}
+					J(w) = {log(1 + e^{-y_iw^Tx_i}) + \frac{1}{\sigma^2}w^Tw}
+				\end{equation}
+				\State Update $w^t \leftarrow w^{t- 1} - r^t \nabla J^t(w^{t - 1})$ where $r^t$ is the learning rate for this epoch
+			\EndFor
+			\State \Return final $w$
+			\end{algorithmic}
+		\end{algorithm}
+		\end{enumerate}
 \end{document}
