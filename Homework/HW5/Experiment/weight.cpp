@@ -10,10 +10,10 @@ Weight::Weight(int n)
 void Weight::update(double r, double c, Data x)
 {
 	for (int i = 0; i < w.size(); ++i)
-		w[i] *= (1 - r);
+		w[i] *= (1 - r.learning_rate());
 
 	for (int i = 0; i < w.size(); ++i)
-		w[i] += r * c * x.x[i] * x.y;
+		w[i] += r.learning_rate() * c * x.x[i] * x.y;
 }
 
 double multiply(vector<pair<int, double> > x)
