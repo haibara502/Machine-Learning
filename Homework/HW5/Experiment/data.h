@@ -18,7 +18,7 @@ class Data
 public:
 	Data(); //Function for initialization
 	Data(vector<pair<int, double> > _x, int _y):x(_x), y(_y){}
-	int calc_error(weight w);
+	double calc(weight w);
 };
 
 class Dataset

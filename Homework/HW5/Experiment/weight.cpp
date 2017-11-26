@@ -28,3 +28,15 @@ double multiply(vector<pair<int, double> > x)
 		}
 	return ans;
 }
+
+void Weight:copy(vector<double> weights)
+{
+	w = weights;
+}
+
+void Weight::output()
+{
+	for (int i = 0; i < w.size(); ++i)
+		cout << w[i] << ' ';
+	cout << endl;
+}

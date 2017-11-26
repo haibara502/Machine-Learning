@@ -6,7 +6,7 @@ Data::Data()
 	y = 0;
 }
 
-int Data::calc_error(weight w)
+double Data::calc(weight w)
 {
 	int weight_x = w.multiply(x);
 	return y * weight_x;
