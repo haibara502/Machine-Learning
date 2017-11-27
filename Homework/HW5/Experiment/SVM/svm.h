@@ -1,11 +1,13 @@
-#ifndef SVM
-#define SVM
+#ifndef SVMCLASS
+#define SVMCLASS
 
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <algorithm>
+#include <vector>
+#include <sstream>
 
 #include "data.h"
 #include "weight.h"
@@ -32,5 +34,5 @@ public:
 	void test();
 
 	SVM();
-}
+};
 #endif
