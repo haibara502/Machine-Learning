@@ -69,9 +69,9 @@ void SVM::train()
 		Data example = train_dataset.pick_random();
 		double value = example.calc_error(w);
 		if (value <= 1)
-			w.update(r.learning_rate(i), c, example);
+			w.update(r.getLearningRate(i), c, example);
 		else
-			w.update(r.learning_rate(i), 0, example);
+			w.update(r.getLearningRate(i), 0, example);
 		cross_validate();
 	}
 	cout << "Do you want to store current weight vector?(y/n)" << endl;
