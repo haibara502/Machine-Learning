@@ -9,13 +9,13 @@
 
 using namespace std;
 
-class learningRate
+class LearningRate
 {
 	double r0;
 
-	double learningRate(int t);
-	double learningRate(int t, double c);
-	learningRate(double r):r0(r){};
+	double getLearningRate(int t);
+	double getLearningRate(int t, double c);
+	LearningRate(double r):r0(r){};
 };
 
 #endif
