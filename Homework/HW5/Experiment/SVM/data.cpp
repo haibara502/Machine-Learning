@@ -2,8 +2,8 @@
 
 Data::Data()
 {
-	x.clear();
 	y = 0;
+	x.clear();
 }
 
 int Data::calc_error(Weight w)
