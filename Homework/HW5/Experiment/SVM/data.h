@@ -23,7 +23,7 @@ class Data
 public:
 	Data(); //Function for initialization
 	Data(vector<pair<int, double> > _x, int _y):y(_y),x(_x){}
-	int calc_error(Weight w);
+	double calc(Weight w);
 	int get_label();
 	vector<pair<int, double> > get_vector();
 };

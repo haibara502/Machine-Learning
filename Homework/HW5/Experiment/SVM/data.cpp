@@ -6,9 +6,9 @@ Data::Data()
 	x.clear();
 }
 
-int Data::calc_error(Weight w)
+double Data::calc(Weight w)
 {
-	int weight_x = w.multiply(x);
+	double weight_x = w.multiply(x);
 	return y * weight_x;
 }
 

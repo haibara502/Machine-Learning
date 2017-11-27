@@ -71,7 +71,7 @@ void SVM::train()
 		cout << "The training accuracy is: " << current_accuracy << endl;
 
 		Data example = train_dataset.pick_random();
-		double value = example.calc_error(w);
+		double value = example.calc(w);
 		if (value <= 1)
 			w.update(r.getLearningRate(i), c, example.get_vector(), example.get_label());
 		else
