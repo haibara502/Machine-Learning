@@ -26,6 +26,7 @@ class Dataset
 	vector<Data> examples; //Stores all the examples
 	Data pick_ranom(); //Randomlly pick subset of the whole examples
 	void read_data(string file); //Read all the examples from the file
+	Dataset();
 };
 
 #endif

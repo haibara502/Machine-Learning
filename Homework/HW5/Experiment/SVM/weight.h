@@ -16,6 +16,7 @@ class Weight
 	Weight(int n);
 	void update(double r, Data x);
 	double multiply(vector<pair<int, double> > x);
+	void copy(vector<double>);
 };
 
 #endif

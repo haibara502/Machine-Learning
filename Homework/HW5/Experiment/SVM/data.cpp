@@ -14,7 +14,6 @@ int Data::calc_error(weight w)
 
 void Dataset::read_data(string file)
 {
-	examples.clear();
 	freopen(file, "r", stdin);
 	string line;
 	while (cin.getline(line))
@@ -37,6 +36,11 @@ void Dataset::read_data(string file)
 		}
 		examples.push_back(Data(x, label);
 	}
+}
+
+Dataset::Dataset()
+{
+	examples.clear();
 }
 
 Data Dataset::pick_random()
