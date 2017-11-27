@@ -60,14 +60,14 @@ void SVM::cross_validate()
 void SVM::train()
 {
 	cout << "Start the training process." << endl;
-	for (int i = 0; i < epoch; ++i)
+	for (int i = 0; i < SVM::epoch; ++i)
 	{
 		cout << "This is epoch " << i << endl;
 		double current_accuracy = get_accuracy(train_dataset);
 		cout << "The training accuracy is: " << current_accuracy << endl;
 
 		Data example = train_dataset.pick_random();
-		double value = example.calc(w);
+		double value = example.calc_error(w);
 		if (value <= 1)
 			w.update(r.learning_rate(i), c, example);
 		else

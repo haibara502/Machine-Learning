@@ -6,7 +6,7 @@ Data::Data()
 	y = 0;
 }
 
-int Data::calc_error(weight w)
+int Data::calc_error(Weight w)
 {
 	int weight_x = w.multiply(x);
 	return y * weight_x;
@@ -14,11 +14,11 @@ int Data::calc_error(weight w)
 
 void Dataset::read_data(string file)
 {
-	freopen(file, "r", stdin);
+	freopen(file.c_str(), "r", stdin);
 	string line;
-	while (cin.getline(line))
+	while (getline(cin, line))
 	{
-		istringstream is(line);
+		istringstream is(line.c_str());
 		int label;
 		is >> label;
 		string indices;
@@ -34,7 +34,7 @@ void Dataset::read_data(string file)
 			find_value >> value;
 			x.push_back(make_pair(index, value));
 		}
-		examples.push_back(Data(x, label);
+		examples.push_back(Data(x, label));
 	}
 }
 

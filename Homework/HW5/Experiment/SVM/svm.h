@@ -7,6 +7,10 @@
 #include <cstring>
 #include <algorithm>
 
+#include "data.h"
+#include "weight.h"
+#include "learningRate.h"
+
 using namespace std;
 
 class SVM

@@ -7,13 +7,13 @@ Weight::Weight(int n)
 		w.push_back(0);
 }
 
-void Weight::update(double r, double c, Data x)
+void Weight::update(double r, double c, vector<pair<double, int> > x, int y)
 {
 	for (int i = 0; i < w.size(); ++i)
 		w[i] *= (1 - r.learning_rate());
 
 	for (int i = 0; i < w.size(); ++i)
-		w[i] += r.learning_rate() * c * x.x[i] * x.y;
+		w[i] += r.learning_rate() * c * x[i] * y;
 }
 
 double Weight::multiply(vector<pair<int, double> > x)
