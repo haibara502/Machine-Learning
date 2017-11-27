@@ -20,6 +20,7 @@ public:
 	double multiply(vector<pair<int, double> > x);
 	void copy(vector<double>);
 	Weight(){w.clear();}
+	void output();
 };
 
 #endif

@@ -33,3 +33,10 @@ void Weight::copy(vector<double> _w)
 {
 	w = _w;
 }
+
+void Weight::output()
+{
+	for (int i = 0; i < w.size(); ++i)
+		cout << w[i] << ' ';
+	cout << endl;
+}
