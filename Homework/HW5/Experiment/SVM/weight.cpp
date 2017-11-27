@@ -16,7 +16,7 @@ void Weight::update(double r, double c, Data x)
 		w[i] += r.learning_rate() * c * x.x[i] * x.y;
 }
 
-double multiply(vector<pair<int, double> > x)
+double Weight::multiply(vector<pair<int, double> > x)
 {
 	double ans = 0;
 	int pos = 0;
@@ -29,14 +29,7 @@ double multiply(vector<pair<int, double> > x)
 	return ans;
 }
 
-void Weight:copy(vector<double> weights)
+void Weight::copy(vector<double> _w)
 {
-	w = weights;
-}
-
-void Weight::output()
-{
-	for (int i = 0; i < w.size(); ++i)
-		cout << w[i] << ' ';
-	cout << endl;
+	w = _w;
 }

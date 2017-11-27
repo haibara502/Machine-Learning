@@ -6,7 +6,7 @@ Data::Data()
 	y = 0;
 }
 
-double Data::calc(weight w)
+int Data::calc_error(weight w)
 {
 	int weight_x = w.multiply(x);
 	return y * weight_x;
@@ -14,7 +14,6 @@ double Data::calc(weight w)
 
 void Dataset::read_data(string file)
 {
-	examples.clear();
 	freopen(file, "r", stdin);
 	string line;
 	while (cin.getline(line))
@@ -37,6 +36,11 @@ void Dataset::read_data(string file)
 		}
 		examples.push_back(Data(x, label);
 	}
+}
+
+Dataset::Dataset()
+{
+	examples.clear();
 }
 
 Data Dataset::pick_random()

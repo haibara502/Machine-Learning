@@ -18,7 +18,7 @@ class Data
 public:
 	Data(); //Function for initialization
 	Data(vector<pair<int, double> > _x, int _y):x(_x), y(_y){}
-	double calc(weight w);
+	int calc_error(weight w);
 };
 
 class Dataset
@@ -26,6 +26,7 @@ class Dataset
 	vector<Data> examples; //Stores all the examples
 	Data pick_ranom(); //Randomlly pick subset of the whole examples
 	void read_data(string file); //Read all the examples from the file
+	Dataset();
 };
 
 #endif
