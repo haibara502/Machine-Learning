@@ -24,14 +24,19 @@ public:
 	Data(); //Function for initialization
 	Data(vector<pair<int, double> > _x, int _y):y(_y),x(_x){}
 	int calc_error(Weight w);
+	int get_label();
+	vector<pair<int, double> > get_vector();
 };
 
 class Dataset
 {
 	vector<Data> examples; //Stores all the examples
+public:
 	Data pick_random(); //Randomlly pick subset of the whole examples
-	void read_data(string file); //Read all the examples from the file
+	void read_data(string); //Read all the examples from the file
 	Dataset();
+	int size();
+	Data pick(int);
 };
 
 #endif

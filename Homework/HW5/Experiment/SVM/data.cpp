@@ -12,6 +12,16 @@ int Data::calc_error(Weight w)
 	return y * weight_x;
 }
 
+int Data::get_label()
+{
+	return y;
+}
+
+vector<pair<int, double> > Data::get_vector()
+{
+	return x;
+}
+
 void Dataset::read_data(string file)
 {
 	freopen(file.c_str(), "r", stdin);
@@ -46,5 +56,15 @@ Dataset::Dataset()
 Data Dataset::pick_random()
 {
 	int index = round(random() / (double)RAND_MAX * (examples.size() - 1));
+	return examples[index];
+}
+
+int Dataset::size()
+{
+	return examples.size();
+}
+
+Data Dataset::pick(int index)
+{
 	return examples[index];
 }

@@ -13,9 +13,10 @@ class LearningRate
 {
 	double r0;
 
+public:
 	double getLearningRate(int t);
 	double getLearningRate(int t, double c);
-	LearningRate(double r):r0(r){};
+	LearningRate(double r = 0):r0(r){};
 };
 
 #endif

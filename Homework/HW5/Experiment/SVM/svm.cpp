@@ -4,10 +4,10 @@ void SVM::read_dataset(int index)
 {
 	for (int i = 0; i < 5; ++i) if (i != index)
 	{
-		string file = "training0" + char(i - '0') + ".data";
+		string file = string("training0") + char(i + '0') + string(".data");
 		train_dataset.read_data(file);
 	}
-	string cv_file = "training0" + char(i - '0') + ".data";
+	string cv_file = string("training0") + char(index + '0') + string(".data");
 	cv_dataset.read_data(cv_file);
 
 	string test_file = "speeches.test.liblinear";
@@ -18,8 +18,11 @@ SVM::SVM()
 {
 	cout << "Please input epoch: ";
 	cin >> epoch;
+
+	double _r;
 	cout << "Please input initial learning rate: ";
-	cin >> r;
+	cin >> _r;
+	r = LearningRate(_r);
 	cout << "Please input initial parameter C: ";
 	cin >> c;
 	cout << "Please input the number of cv set(from 0 to 4): ";
@@ -38,13 +41,14 @@ SVM::SVM()
 double SVM::get_accuracy(Dataset dataset)
 {
 	double all = dataset.size();
+	int correct = 0;
 	for (int i = 0; i < dataset.size(); ++i)
 	{
 		double value = dataset.pick(i).calc(w);
 		int label = 1;
 		if (value < 0)
 			label = -1;
-		if (label == dataset.pick(i).label())
+		if (label == dataset.pick(i).get_label())
 			correct ++;
 	}
 	all = correct / all;
@@ -69,9 +73,9 @@ void SVM::train()
 		Data example = train_dataset.pick_random();
 		double value = example.calc_error(w);
 		if (value <= 1)
-			w.update(r.getLearningRate(i), c, example);
+			w.update(r.getLearningRate(i), c, example.get_vector(), example.get_label());
 		else
-			w.update(r.getLearningRate(i), 0, example);
+			w.update(r.getLearningRate(i), 0, example.get_vector(), example.get_label());
 		cross_validate();
 	}
 	cout << "Do you want to store current weight vector?(y/n)" << endl;
@@ -98,7 +102,7 @@ void SVM::read_weight()
 	cout << "Please input the file name to read from: ";
 	string file;
 	cin >> file;
-	freopen(file, "r", stdin);
+	freopen(file.c_str(), "r", stdin);
 
 	vector<double> weights;
 	string line;
@@ -116,7 +120,7 @@ void SVM::output_weight()
 	cout << "Please input the file name to output to: ";
 	string file;
 	cin >> file;
-	freopen(file, "w", stdout);
+	freopen(file.c_str(), "w", stdout);
 	w.output();
 	cout << "Write done." << endl;
 }

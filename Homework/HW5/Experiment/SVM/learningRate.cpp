@@ -9,4 +9,3 @@ double LearningRate::getLearningRate(int t, double c)
 {
 	return r0 / (1 + r0 * t / c);
 }
-

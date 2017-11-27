@@ -16,9 +16,10 @@ class Weight
 
 public:
 	Weight(int n);
-	void update(double r, vector<pair<double, int> > x, int y);
+	void update(double r, double c, vector<pair<int, double> > x, int y);
 	double multiply(vector<pair<int, double> > x);
 	void copy(vector<double>);
+	Weight(){w.clear();}
 };
 
 #endif

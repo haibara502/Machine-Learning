@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <vector>
 #include <sstream>
+#include <string>
 
 #include "data.h"
 #include "weight.h"
@@ -27,7 +28,9 @@ class SVM
 	void output_weight();
 
 	void cross_validate();
-	void get_accuracy(Dataset);
+	double get_accuracy(Dataset);
+
+	void read_dataset(int);
 
 public:
 	void train();
