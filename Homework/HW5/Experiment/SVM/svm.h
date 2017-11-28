@@ -20,8 +20,8 @@ class SVM
 {
 	int epoch;
 	Dataset train_dataset, cv_dataset, test_dataset;
-	Weight w;
-	LearningRate r;
+	Weight *w;
+	LearningRate *r;
 	double c;
 
 	void read_weight();

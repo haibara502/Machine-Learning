@@ -12,6 +12,7 @@
 #include <vector>
 #include <sstream>
 #include <cmath>
+#include <fstream>
 
 using namespace std;
 

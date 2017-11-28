@@ -20,7 +20,7 @@ SRCDIR:=	      # 除了当前目录外，其他的源代码文件目录
 # # Now alter any implicit rules' variables if you like, e.g.:
 
 CC:=g++
-CFLAGS := -g -Wall -O3 -Wno-deprecated-declarations -Wno-unused-result
+CFLAGS := -g -Wall -O3 -Wno-deprecated-declarations -Wno-unused-result -Wno-sign-compare
 CPPFLAGS := $(CFLAGS)
 CPPFLAGS += $(addprefix -I,$(INCLUDES))
 CPPFLAGS += -MMD

@@ -24,9 +24,12 @@ vector<pair<int, double> > Data::get_vector()
 
 void Dataset::read_data(string file)
 {
-	freopen(file.c_str(), "r", stdin);
+	cout << "Start to read the data." << endl;
+	cout << "The file is: " << file << endl;
+	cout << "Current total examples are: " << examples.size() << endl;
+	ifstream train_input(file.c_str());
 	string line;
-	while (getline(cin, line))
+	while (getline(train_input, line))
 	{
 		istringstream is(line.c_str());
 		int label;
@@ -46,6 +49,7 @@ void Dataset::read_data(string file)
 		}
 		examples.push_back(Data(x, label));
 	}
+	cout << "After the reading, the current size of examples is: " << examples.size() << endl;
 }
 
 Dataset::Dataset()

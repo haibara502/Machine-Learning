@@ -2,16 +2,24 @@
 
 void SVM::read_dataset(int index)
 {
+	cout << "Start to read the dataset" << endl;
 	for (int i = 0; i < 5; ++i) if (i != index)
 	{
 		string file = string("training0") + char(i + '0') + string(".data");
+		cout << file << endl;
 		train_dataset.read_data(file);
 	}
+	cout << "Training data reading done." << endl;
+	cout << "Training dataset size is: " << train_dataset.size() << endl;
 	string cv_file = string("training0") + char(index + '0') + string(".data");
 	cv_dataset.read_data(cv_file);
+	cout << "CV data reading done." << endl;
+	cout << "Size of CV dataset is: " << cv_dataset.size() << endl;
 
 	string test_file = "speeches.test.liblinear";
 	test_dataset.read_data(test_file);
+	cout << test_dataset.size() << endl;
+	cout << "Test data reading done." << endl;
 }
 
 SVM::SVM()
@@ -22,7 +30,7 @@ SVM::SVM()
 	double _r;
 	cout << "Please input initial learning rate: ";
 	cin >> _r;
-	r = LearningRate(_r);
+	r = new LearningRate(_r);
 	cout << "Please input initial parameter C: ";
 	cin >> c;
 	cout << "Please input the number of cv set(from 0 to 4): ";
@@ -30,11 +38,12 @@ SVM::SVM()
 	cin >> cv_index;
 	read_dataset(cv_index);	
 	cout << "All data read done." << endl;
+
 	int dimension;
 	cout << "Please input the dimension of feature: ";
 	cin >> dimension;
 
-	w = Weight(dimension);
+	w = new Weight(dimension);
 	cout << "Weight initialization done." << endl;
 }
 
@@ -44,7 +53,7 @@ double SVM::get_accuracy(Dataset dataset)
 	int correct = 0;
 	for (int i = 0; i < dataset.size(); ++i)
 	{
-		double value = dataset.pick(i).calc(w);
+		double value = dataset.pick(i).calc(*w);
 		int label = 1;
 		if (value < 0)
 			label = -1;
@@ -71,11 +80,11 @@ void SVM::train()
 		cout << "The training accuracy is: " << current_accuracy << endl;
 
 		Data example = train_dataset.pick_random();
-		double value = example.calc(w);
+		double value = example.calc(*w);
 		if (value <= 1)
-			w.update(r.getLearningRate(i), c, example.get_vector(), example.get_label());
+			w -> update(r -> getLearningRate(i), c, example.get_vector(), example.get_label());
 		else
-			w.update(r.getLearningRate(i), 0, example.get_vector(), example.get_label());
+			w -> update(r -> getLearningRate(i), 0, example.get_vector(), example.get_label());
 		cross_validate();
 	}
 	cout << "Do you want to store current weight vector?(y/n)" << endl;
@@ -111,7 +120,7 @@ void SVM::read_weight()
 	double value;
 	while (is >> value)
 		weights.push_back(value);
-	w.copy(weights);	
+	w -> copy(weights);	
 	cout << "Read done." << endl;
 }
 
@@ -121,6 +130,6 @@ void SVM::output_weight()
 	string file;
 	cin >> file;
 	freopen(file.c_str(), "w", stdout);
-	w.output();
+	w -> output();
 	cout << "Write done." << endl;
 }

@@ -19,7 +19,6 @@ public:
 	void update(double r, double c, vector<pair<int, double> > x, int y);
 	double multiply(vector<pair<int, double> > x);
 	void copy(vector<double>);
-	Weight(){w.clear();}
 	void output();
 };
 

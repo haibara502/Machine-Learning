@@ -13,5 +13,5 @@ int main()
 	SVM *svm = new SVM();
 	svm -> train();
 	svm -> test();
-	delete svm;
+	//delete svm;
 }
