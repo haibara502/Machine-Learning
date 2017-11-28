@@ -6,3 +6,6 @@ Makefile
 homework2.aux
 homework2.log
 homework*
+*.png
+*.zip
+*/*/tmp.txt
