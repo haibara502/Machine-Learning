@@ -1,3 +1,4 @@
 SVM
 *.png
 *.o
+.gitignore
